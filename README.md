@@ -297,6 +297,7 @@ Above job templates are acutually configured as separate workflow templates for 
 3. Click `Save` button.
 4. Click `Start` and launch Visualizer.
 5. Configure the workflow template as follows:
+<img width="1506" alt="スクリーンショット 2023-11-05 15 20 39" src="https://github.com/yukshimizu/managing-rhel-lifecycle-demo/assets/24378327/4f5519b6-67f3-4454-9fad-45198802ce55">
 
 6. Click `Save` button.
 7. Click `Survery` tab and click `Add` button.
@@ -317,6 +318,7 @@ NOTE: Although `foreman_admin_passwd` should be encrypted in production, using v
 3. Click `Save` button.
 4. Click `Start` and launch Visualizer.
 5. Configure the workflow template as follows:
+<img width="1499" alt="スクリーンショット 2023-11-05 15 21 00" src="https://github.com/yukshimizu/managing-rhel-lifecycle-demo/assets/24378327/19121ae5-ea09-43b1-9c86-4ce13bdec4bf">
 
 6. Click `Save` button.
 7. Click `Survery` tab and click `Add` button.
@@ -328,4 +330,4 @@ NOTE: Although `foreman_admin_passwd` should be encrypted in production, using v
         - Questoin: Enter Satellite Password
         - Answer variable name: `foreman_admin_passwd`
 
-NOTE: When running the workflow for Production , `foreman_cv_end_date` needs to be set identical to the inputo for Development.
+NOTE: When running the workflow for Production , `foreman_cv_end_date` needs to be set identical to the input for Development.
