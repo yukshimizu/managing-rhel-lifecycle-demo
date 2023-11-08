@@ -1,0 +1,51 @@
+---
+- name: Test the application of the restarted instances
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: Fail if variables not defined
+      ansible.builtin.assert:
+        that:
+          - aws_region is defined
+          - managed_vms_name_prefix is defined
+          - managed_vms_environment is defined
+
+        fail_msg: "Required variables not set"
+
+    - name: Gather the demo instances' information
+      amazon.aws.ec2_instance_info:
+        filters:
+          "tag:purpose": "{{ purpose }}"
+          "tag:Name": "{{ managed_vms_name_prefix }}-*"
+          "tag:environment": "{{ managed_vms_environment }}"
+          instance-state-name:
+            - running
+        region: "{{ aws_region }}"
+      register: target_vms
+
+    - name: "Test the application"
+      ansible.builtin.debug:
+        msg: "Performing Test"
+
+    - name: GET the default weblog page
+      ansible.builtin.uri:
+        url: "https://{{ item.public_dns_name }}/wordpress/"
+        method: GET
+        status_code: 200
+        return_content: true
+        validate_certs: false
+      register: default_weblog_page
+      loop: "{{ target_vms.instances }}"
+      when: target_vms.instances is defined and target_vms.instances | length > 0
+
+    - name: Check for the site name supplied in config
+      ansible.builtin.fail:
+        msg: "Site Check Failed - could not access default weblog {{ wp_weblog_title }}"
+      when: item.content is not search(wp_weblog_title)
+      loop: "{{ default_weblog_page.results }}"
+
+    - name: Test results
+      ansible.builtin.debug:
+        msg: "All tests succeeded."

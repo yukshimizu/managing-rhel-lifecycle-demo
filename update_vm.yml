@@ -1,0 +1,22 @@
+---
+- name: Update all packages following the configured Content View
+  hosts: "{{ target_hosts }}"
+  become: true
+  remote_user: ec2-user
+
+  tasks:
+    - name: "Stop service httpd, if started on {{ inventory_hostname }}"
+      ansible.builtin.service:
+        name: httpd
+        state: stopped
+
+    - name: "Stop service mysqld, if started on {{ inventory_hostname }}"
+      ansible.builtin.service:
+        name: mysqld
+        state: stopped
+
+    - name: "Update all available packages of {{ inventory_hostname }}"
+      ansible.builtin.dnf:
+        name: "*"
+        state: latest
+        update_only: true

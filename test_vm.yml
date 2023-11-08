@@ -1,0 +1,23 @@
+---
+- name: Test the infrastructure of the restarted instances
+  hosts: "{{ target_hosts }}"
+  become: true
+  remote_user: ec2-user
+
+  tasks:
+    - name: Gather service facts
+      ansible.builtin.service_facts:
+
+    - name: "Check if service mysqld started on {{ inventory_hostname }}"
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.services['mysqld.service']['state'] == 'running'
+        fail_msg: "mysqld service is not running"
+        success_msg: "mysqld service is running"
+    
+    - name: "Check if service httpd started on {{ inventory_hostname }}"
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.services['httpd.service']['state'] == 'running'
+        fail_msg: "httpd service is not running"
+        success_msg: "httpd service is running"

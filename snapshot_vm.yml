@@ -1,0 +1,40 @@
+---
+- name: Snapshot the instances
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - name: Fail if variables not defined
+      ansible.builtin.assert:
+        that:
+          - aws_region is defined
+          - managed_vms_name_prefix is defined
+          - managed_vms_environment is defined
+
+        fail_msg: "Required variables not set"
+
+    - name: Check if the demo VMs are already provisioned
+      amazon.aws.ec2_instance_info:
+        filters:
+          "tag:purpose": "{{ purpose }}"
+          "tag:Name": "{{ managed_vms_name_prefix }}-*"
+          "tag:environment": "{{ managed_vms_environment }}"
+          instance-state-name:
+            - pending
+            - running
+            - shutting-down
+            - stopping
+            - stopped
+        region: "{{ aws_region }}"
+      register: target_vms
+
+    - name: Snapshot the EC2 instances
+      amazon.aws.ec2_snapshot:
+        instance_id: "{{ item.instance_id }}"
+        device_name: /dev/sda1
+        description: "Snapshot begore updating"
+        region: "{{ aws_region }}"
+      loop: "{{ target_vms.instances }}"
+      when: target_vms.instances is defined and target_vms.instances | length > 0
+      

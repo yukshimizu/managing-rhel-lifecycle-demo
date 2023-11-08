@@ -1,0 +1,30 @@
+---
+- name: Promote the Content View to a Life Cycle Environment
+  hosts: tag_Name_satellite01
+  connection: local
+
+  tasks:
+    - name: Fail if variables not defined
+      ansible.builtin.assert:
+        that:
+          - current_lce is defined
+          - target_lce is defined
+          - foreman_admin_username is defined
+          - foreman_admin_passwd is defined
+          - foreman_organization is defined
+          - foreman_content_view is defined
+          - foreman_cv_end_date is defined
+
+        fail_msg: "Required variables not set"
+
+    - name: "Promote the Content View new version from {{ current_lce}} to {{ target_lce }}"
+      redhat.satellite.content_view_version:
+        username: "{{ foreman_admin_username }}"
+        password: "{{ foreman_admin_passwd }}"
+        server_url: "https://{{ inventory_hostname }}"
+        organization: "{{ foreman_organization }}"
+        content_view: "{{ foreman_content_view }}"
+        description: "Publishment-{{ foreman_cv_end_date }}"
+        current_lifecycle_environment: "{{ current_lce }}"
+        lifecycle_environments: "{{ target_lce }}"
+        validate_certs: false
