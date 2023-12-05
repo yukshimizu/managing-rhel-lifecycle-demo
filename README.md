@@ -41,42 +41,6 @@ Assuming the demo environement has been already created by the way of before men
 ### Manually
 Ensure that you are logged in to your Ansible Automation Controller before proceeding with following steps.
 
-### Create inventories
-1. Click `Inventories` in the left menu.
-2. Click `Add` button and select `Add inventory`.
-3. Enter the following fields:
-   - Name: `RHEL_Demo`
-4. Click `Save` button and then select `Sources` tab.
-5. Click `Add` button.
-6. Enter the following fields:
-   - Name: `AWS`
-   - Source: `Amazon EC2`
-   - Credential: `aws_cred`
-   - Update options: `Overwrite`, `Overwrite variables`, `Update on launch`
-   - Source variables:
-   ```
-   ---
-   # Minimal example using environment variables
-   # Fetch all hosts taged with "purpose" tag as "demo" in ap-northeast-1
-   
-   plugin: amazon.aws.aws_ec2
-   keyed_groups:
-     - prefix: tag
-       key: tags
-
-    # Change regions corresponding to your environment
-    regions:
-      - ap-northeast-1 # adjust with your preference
-
-    # Filter only objects taged with "purpose" tag as "demo"
-    filters:
-      tag:purpose: demo
-
-    # Ignores 403 errors rather than failing
-    strict_permissions: false
-   ```
-7. Click `Save` button.
-
 ### Create credentials
 At leaset the following two credentails need to be defined.
 
@@ -103,6 +67,43 @@ Please refer to [Ansible Doc](https://docs.ansible.com/automation-controller/lat
 
 Please refer to [Ansible Doc](https://docs.ansible.com/automation-controller/latest/html/userguide/credentials.html#machine) for more details.
 
+### Create inventories
+1. Click `Inventories` in the left menu.
+2. Click `Add` button and select `Add inventory`.
+3. Enter the following fields:
+   - Name: `RHEL_Demo`
+4. Click `Save` button and then select `Sources` tab.
+5. Click `Add` button.
+6. Enter the following fields:
+   - Name: `AWS`
+   - Source: `Amazon EC2`
+   - Credential: `aws_cred`
+   - Update options: `Overwrite`, `Overwrite variables`, `Update on launch`
+   - Source variables:
+   ```
+   ---
+   # Minimal example using environment variables
+   # Fetch all hosts taged with "purpose" tag as "demo" in ap-northeast-1
+   
+   plugin: amazon.aws.aws_ec2
+   keyed_groups:
+     - prefix: tag
+       key: tags
+
+   # Change regions corresponding to your environment
+   regions:
+     - ap-northeast-1 # adjust with your preference
+
+   # Filter only objects taged with "purpose" tag as "demo"
+   filters:
+     tag:purpose: demo
+
+   # Ignores 403 errors rather than failing
+   strict_permissions: false
+   ```
+7. Click `Save` button.
+
+
 ### Create a project
 1. Click `Projects` in the left menu.
 2. Click `Add` button.
@@ -115,6 +116,8 @@ Please refer to [Ansible Doc](https://docs.ansible.com/automation-controller/lat
 4. Click `Save` button
 
 Please refer to [Ansible Doc](https://docs.ansible.com/automation-controller/latest/html/userguide/projects.html#add-a-new-project) for more details.
+
+NOTE: You need to configure Red Hat automation hub as your primary source of content. To configure automation hub, you must create a credential and add it to the Organization’s Galaxy Credentials field (in this case "Default"). With automation hub, you have access to certified, supported collection i.e., "redhat.satellite".
 
 ### Create job templates
 Each job template is equivalent to a playbook in this repository. Repeat these steps for each template/playbook that you want to use and change the variables specific to the individual playbook. Please refer to [Ansible Doc](https://docs.ansible.com/automation-controller/latest/html/userguide/job_templates.html) for more details.
