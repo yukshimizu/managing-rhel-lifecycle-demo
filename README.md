@@ -157,7 +157,7 @@ target_lce: Development
 - Variables:
 ```
 ---
-managed_vms_enviroment: dev
+managed_vms_environment: dev
 ```
 
 #### Update Dev VM
@@ -183,7 +183,7 @@ target_hosts: tag_environment_dev
 - Variables:
 ```
 ---
-managed_vms_enviroment: dev
+managed_vms_environment: dev
 ```
 
 #### Test Dev VM
@@ -209,7 +209,7 @@ target_hosts: tag_environment_dev
 - Variables:
 ```
 ---
-managed_vms_enviroment: dev
+managed_vms_environment: dev
 ```
 
 #### Promote To Prod
@@ -235,7 +235,7 @@ target_lce: Production
 - Variables:
 ```
 ---
-managed_vms_enviroment: prod
+managed_vms_environment: prod
 ```
 
 #### Update Prod VM
@@ -261,7 +261,7 @@ target_hosts: tag_environment_prod
 - Variables:
 ```
 ---
-managed_vms_enviroment: prod
+managed_vms_environment: prod
 ```
 
 #### Test Prod VM
@@ -287,7 +287,7 @@ target_hosts: tag_environment_prod
 - Variables:
 ```
 ---
-managed_vms_enviroment: prod
+managed_vms_environment: prod
 ```
 
 ### Create workflow templates
