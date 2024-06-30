@@ -37,4 +37,3 @@
         region: "{{ aws_region }}"
       loop: "{{ target_vms.instances }}"
       when: target_vms.instances is defined and target_vms.instances | length > 0
-      

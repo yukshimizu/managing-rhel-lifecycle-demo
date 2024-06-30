@@ -38,6 +38,9 @@ wp_weblog_title: "DemoSite"
 ## Installation and usage
 Assuming the demo environement has been already created by the way of before mentioned and you've also performed `git clone` this repo.
 
+### Automatedly
+You can create the demo environment automatedly by running the playbook `create_aac_demo.yml` included in the [managing-rhel-lifecycle-seup](https://github.com/yukshimizu/managing-rhel-lifecycle-setup) paired repo.
+
 ### Manually
 Ensure that you are logged in to your Ansible Automation Controller before proceeding with following steps.
 
