@@ -57,7 +57,7 @@ At leaset the following two credentails need to be defined.
    - Secret Key: your AWS_SECRET_ACCESS_KEY
 4. Click `Save` button.
 
-Please refer to [Ansible Doc](https://docs.ansible.com/automation-controller/latest/html/userguide/credentials.html#amazon-web-services) for more details.
+Please refer to [Ansible Doc](https://docs.ansible.com/automation-controller/4.5/html/userguide/credentials.html#amazon-web-services) for more details.
 
 #### Credential for ssh to AWS instances
 1. Click `Credentials` in the left menu.
@@ -68,7 +68,7 @@ Please refer to [Ansible Doc](https://docs.ansible.com/automation-controller/lat
    - SSH Private Key: your AWS private key
 4. Click `Save` button.
 
-Please refer to [Ansible Doc](https://docs.ansible.com/automation-controller/latest/html/userguide/credentials.html#machine) for more details.
+Please refer to [Ansible Doc](https://docs.ansible.com/automation-controller/4.5/html/userguide/credentials.html#machine) for more details.
 
 ### Create inventories
 1. Click `Inventories` in the left menu.
@@ -118,12 +118,12 @@ Please refer to [Ansible Doc](https://docs.ansible.com/automation-controller/lat
    - Source Control URL: your git repositoriy
 4. Click `Save` button
 
-Please refer to [Ansible Doc](https://docs.ansible.com/automation-controller/latest/html/userguide/projects.html#add-a-new-project) for more details.
+Please refer to [Ansible Doc](https://docs.ansible.com/automation-controller/4.5/html/userguide/projects.html#add-a-new-project) for more details.
 
 NOTE: You need to configure Red Hat automation hub as your primary source of content. To configure automation hub, you must create a credential and add it to the Organization’s Galaxy Credentials field (in this case "Default"). With automation hub, you have access to certified, supported collection i.e., "redhat.satellite".
 
 ### Create job templates
-Each job template is equivalent to a playbook in this repository. Repeat these steps for each template/playbook that you want to use and change the variables specific to the individual playbook. Please refer to [Ansible Doc](https://docs.ansible.com/automation-controller/latest/html/userguide/job_templates.html) for more details.
+Each job template is equivalent to a playbook in this repository. Repeat these steps for each template/playbook that you want to use and change the variables specific to the individual playbook. Please refer to [Ansible Doc](https://docs.ansible.com/automation-controller/4.5/html/userguide/job_templates.html) for more details.
 
 1. Click `Templates` in the left menu.
 2. Click `Add` button and select `Add job template`.
@@ -294,7 +294,7 @@ managed_vms_environment: prod
 ```
 
 ### Create workflow templates
-Above job templates are acutually configured as separate workflow templates for Development and for Production respectively.  Follow the next steps for each environment. Please refer to [Ansible Doc](https://docs.ansible.com/automation-controller/latest/html/userguide/workflow_templates.html) for more details.
+Above job templates are acutually configured as separate workflow templates for Development and for Production respectively.  Follow the next steps for each environment. Please refer to [Ansible Doc](https://docs.ansible.com/automation-controller/4.5/html/userguide/workflow_templates.html) for more details.
 
 #### Update Dev Environment
 
@@ -311,9 +311,11 @@ Above job templates are acutually configured as separate workflow templates for 
     - ErrataByDate
         - Question: Enter ErrataByDate
         - Answer variable name: `foreman_cv_end_date`
+        - Answer Type: Text
     - Satellite Password
         - Questoin: Enter Satellite Password
         - Answer variable name: `foreman_admin_passwd`
+        - Answer Type: Password
 
 NOTE: Although `foreman_admin_passwd` should be encrypted in production, using vault for example, I just use easier way for demo purpose.
 
@@ -332,8 +334,10 @@ NOTE: Although `foreman_admin_passwd` should be encrypted in production, using v
     - ErrataByDate
         - Question: Enter ErrataByDate
         - Answer variable name: `foreman_cv_end_date`
+        - Answer Type: Text
     - Satellite Password
         - Questoin: Enter Satellite Password
         - Answer variable name: `foreman_admin_passwd`
+        - Answer Type: Password
 
 NOTE: When running the workflow for Production , `foreman_cv_end_date` needs to be set identical to the input for Development.
