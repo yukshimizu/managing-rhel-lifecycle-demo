@@ -46,38 +46,37 @@ Assuming the demo environement has been already created by the way of before men
 Ensure that you are logged in to your Ansible Automation Controller before proceeding with following steps.
 
 ### Create credentials
-At leaset the following two credentails need to be defined.
+At leaset the following two credentails need to be defined. Please refer to [Ansible Doc](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html/using_automation_execution/controller-credentials) for more details.
 
 #### Credential for AWS
 1. Click `Credentials` in the left menu.
-2. Click `Add` button.
+2. Click `Create credential` button.
 3. Enter the following fields:
    - Name: `aws_cred`
+   - Organization: `Default`
    - Credential Type: `Amazon Web Services`
    - Access Key: your AWS_ACCESS_KEY_ID
    - Secret Key: your AWS_SECRET_ACCESS_KEY
-4. Click `Save` button.
-
-Please refer to [Ansible Doc](https://docs.ansible.com/automation-controller/4.5/html/userguide/credentials.html#amazon-web-services) for more details.
+4. Click `Create credential` button.
 
 #### Credential for ssh to AWS instances
 1. Click `Credentials` in the left menu.
-2. Click `Add` button.
+2. Click `Create credential` button.
 3. Enter the following fields:
    - Name: `aws_key`
+   - Organization: `Default`
    - Credential Type: `Machine`
    - SSH Private Key: your AWS private key
-4. Click `Save` button.
-
-Please refer to [Ansible Doc](https://docs.ansible.com/automation-controller/4.5/html/userguide/credentials.html#machine) for more details.
+4. Click `Create credential` button.
 
 ### Create inventories
 1. Click `Inventories` in the left menu.
-2. Click `Add` button and select `Add inventory`.
+2. Click `Create inventory` button and select `Create inventory`.
 3. Enter the following fields:
    - Name: `RHEL_Demo`
-4. Click `Save` button and then select `Sources` tab.
-5. Click `Add` button.
+   - Organization: `Default`
+4. Click `Create inventory` button and then select `Sources` tab.
+5. Click `Create source` button.
 6. Enter the following fields:
    - Name: `AWS`
    - Source: `Amazon EC2`
@@ -117,19 +116,19 @@ Please refer to [Ansible Doc](https://docs.ansible.com/automation-controller/4.5
    - Execution Environment: `Default execution environment`
    - Source Control Type: `Git`
    - Source Control URL: your git repositoriy
-4. Click `Save` button
+4. Click `Create source` button
 
-Please refer to [Ansible Doc](https://docs.ansible.com/automation-controller/4.5/html/userguide/projects.html#add-a-new-project) for more details.
+Please refer to [Ansible Doc](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html/using_automation_execution/controller-projects#proc-controller-adding-a-project) for more details.
 
-NOTE: You need to configure Red Hat automation hub as your primary source of content. To configure automation hub, you must create a credential and add it to the Organization’s Galaxy Credentials field (in this case "Default"). With automation hub, you have access to certified, supported collection i.e., "redhat.satellite".
+NOTE: You need to configure Red Hat automation hub as your primary source of content. To configure automation hub, you must create a credential and add it to the Organization’s Galaxy Credentials field (in this case "Default"). With automation hub, you have access to certified, supported collection i.e., "redhat.satellite". Please refer to [Ansible Doc](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html/using_automation_execution/controller-projects#proc-projects-using-collections-with-hub) for more details.
 
 ### Create job templates
-Each job template is equivalent to a playbook in this repository. Repeat these steps for each template/playbook that you want to use and change the variables specific to the individual playbook. Please refer to [Ansible Doc](https://docs.ansible.com/automation-controller/4.5/html/userguide/job_templates.html) for more details.
+Each job template is equivalent to a playbook in this repository. Repeat these steps for each template/playbook that you want to use and change the variables specific to the individual playbook. Please refer to [Ansible Doc](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html/using_automation_execution/controller-job-templates) for more details.
 
 1. Click `Templates` in the left menu.
-2. Click `Add` button and select `Add job template`.
+2. Click `Create template` button and select `Create job template`.
 3. Follow the next steps respectively.
-4. Click `Save` button
+4. Click `Create job template` button
 
 #### Content View Publish
 - Name: `Content View Publish`
@@ -295,16 +294,16 @@ managed_vms_environment: prod
 ```
 
 ### Create workflow templates
-Above job templates are acutually configured as separate workflow templates for Development and for Production respectively.  Follow the next steps for each environment. Please refer to [Ansible Doc](https://docs.ansible.com/automation-controller/4.5/html/userguide/workflow_templates.html) for more details.
+Above job templates are acutually configured as separate workflow templates for Development and for Production respectively.  Follow the next steps for each environment. Please refer to [Ansible Doc](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html/using_automation_execution/controller-workflow-job-templates) for more details.
 
 #### Update Dev Environment
 
 1. Click `Templates` in the left menu.
-2. Click `Add` button and select `Add workflow template`.
-3. Click `Save` button.
-4. Click `Start` and launch Visualizer.
+2. Click `Create template` button and select `Create workflow job template`.
+3. Click `Create workflow job template` button.
+4. Click `Add step` in the launched Visualizer.
 5. Configure the workflow template as follows:
-<img width="1506" alt="スクリーンショット 2023-11-05 15 20 39" src="https://github.com/yukshimizu/managing-rhel-lifecycle-demo/assets/24378327/4f5519b6-67f3-4454-9fad-45198802ce55">
+![](./images/Update_Dev_Env.png)
 
 6. Click `Save` button.
 7. Click `Survery` tab and click `Add` button.
@@ -323,11 +322,11 @@ NOTE: Although `satellite_admin_passwd` should be encrypted in production, using
 #### Update Prod Environment
 
 1. Click `Templates` in the left menu.
-2. Click `Add` button and select `Add workflow template`.
-3. Click `Save` button.
-4. Click `Start` and launch Visualizer.
+2. Click `Create template` button and select `Create workflow job template`.
+3. Click `Create workflow job template` button.
+4. Click `Add step` in the launched Visualizer.
 5. Configure the workflow template as follows:
-<img width="1499" alt="スクリーンショット 2023-11-05 15 21 00" src="https://github.com/yukshimizu/managing-rhel-lifecycle-demo/assets/24378327/19121ae5-ea09-43b1-9c86-4ce13bdec4bf">
+![](./images/Update_Prod_Env.png)
 
 6. Click `Save` button.
 7. Click `Survery` tab and click `Add` button.

@@ -12,6 +12,7 @@
           - satellite_organization is defined
           - satellite_content_view is defined
           - satellite_cv_end_date is defined
+          - satellite_content_view_filter_types is defined
 
         fail_msg: "Required variables not set"
 
