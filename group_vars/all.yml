@@ -1,11 +1,15 @@
 ---
 purpose: demo
 
-foreman_organization: My_Organization
-foreman_location: Tokyo
-foreman_admin_username: admin
-foreman_content_view: "RHEL9_SOE"
-foreman_activation_key_name: "Demo_Key"
+satellite_organization: My_Organization
+satellite_location: Tokyo
+satellite_admin_username: admin
+satellite_activation_key_name: "Demo_Key"
+satellite_content_view: "RHEL9_SOE"
+satellite_content_view_filter_types:
+  - bugfix
+  - security
+  - enhancement
 
 managed_vms_name_prefix: "managed"
 aws_region: ap-northeast-1 # adjust with your preference

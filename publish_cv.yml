@@ -7,38 +7,35 @@
     - name: Fail if variables not defined
       ansible.builtin.assert:
         that:
-          - foreman_admin_username is defined
-          - foreman_admin_passwd is defined
-          - foreman_organization is defined
-          - foreman_content_view is defined
-          - foreman_cv_end_date is defined
+          - satellite_admin_username is defined
+          - satellite_admin_passwd is defined
+          - satellite_organization is defined
+          - satellite_content_view is defined
+          - satellite_cv_end_date is defined
 
         fail_msg: "Required variables not set"
 
     - name: "Update the Content View Filter Rule"
       redhat.satellite.content_view_filter_rule:
-        username: "{{ foreman_admin_username }}"
-        password: "{{ foreman_admin_passwd }}"
+        username: "{{ satellite_admin_username }}"
+        password: "{{ satellite_admin_passwd }}"
         server_url: "https://{{ inventory_hostname }}"
-        organization: "{{ foreman_organization }}"
-        content_view: "{{ foreman_content_view }}"
+        organization: "{{ satellite_organization }}"
+        content_view: "{{ satellite_content_view }}"
         content_view_filter: "ErrataByDate"
         date_type: updated
-        types:
-          - bugfix
-          - security
-          - enhancement
-        end_date: "{{ foreman_cv_end_date }}"
+        types: "{{ satellite_content_view_filter_types }}"
+        end_date: "{{ satellite_cv_end_date }}"
         validate_certs: false
 
     - name: "Publish the new version of Content View to Library"
       redhat.satellite.content_view_version:
-        username: "{{ foreman_admin_username }}"
-        password: "{{ foreman_admin_passwd }}"
+        username: "{{ satellite_admin_username }}"
+        password: "{{ satellite_admin_passwd }}"
         server_url: "https://{{ inventory_hostname }}"
-        organization: "{{ foreman_organization }}"
-        content_view: "{{ foreman_content_view }}"
-        description: "Publishment-{{ foreman_cv_end_date }}"
+        organization: "{{ satellite_organization }}"
+        content_view: "{{ satellite_content_view }}"
+        description: "Publishment-{{ satellite_cv_end_date }}"
         lifecycle_environments:
           - Library
         validate_certs: false

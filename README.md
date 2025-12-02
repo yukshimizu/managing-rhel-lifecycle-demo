@@ -24,11 +24,15 @@ These variables have already been set as follows, corresponding to the setup by 
 ```
 purpose: demo
 
-foreman_organization: My_Organization
-foreman_location: Tokyo
-foreman_admin_username: admin
-foreman_content_view: "RHEL9_SOE"
-foreman_activation_key_name: "Demo_Key"
+satellite_organization: My_Organization
+satellite_location: Tokyo
+satellite_admin_username: admin
+satellite_activation_key_name: "Demo_Key"
+satellite_content_view: "RHEL9_SOE"
+satellite_content_view_filter_types:
+  - bugfix
+  - security
+  - enhancement
 
 managed_vms_name_prefix: "managed"
 aws_region: ap-northeast-1 # adjust with your preference
@@ -37,9 +41,6 @@ wp_weblog_title: "DemoSite"
 
 ## Installation and usage
 Assuming the demo environement has been already created by the way of before mentioned and you've also performed `git clone` this repo.
-
-### Automatedly
-You can create the demo environment automatedly by running the playbook `create_aac_demo.yml` included in the [managing-rhel-lifecycle-seup](https://github.com/yukshimizu/managing-rhel-lifecycle-setup) paired repo.
 
 ### Manually
 Ensure that you are logged in to your Ansible Automation Controller before proceeding with following steps.
@@ -310,14 +311,14 @@ Above job templates are acutually configured as separate workflow templates for 
 8. Add the following two surveys and enable them:
     - ErrataByDate
         - Question: Enter ErrataByDate
-        - Answer variable name: `foreman_cv_end_date`
+        - Answer variable name: `satellite_cv_end_date`
         - Answer Type: Text
     - Satellite Password
         - Questoin: Enter Satellite Password
-        - Answer variable name: `foreman_admin_passwd`
+        - Answer variable name: `satellite_admin_passwd`
         - Answer Type: Password
 
-NOTE: Although `foreman_admin_passwd` should be encrypted in production, using vault for example, I just use easier way for demo purpose.
+NOTE: Although `satellite_admin_passwd` should be encrypted in production, using vault for example, I just use easier way for demo purpose.
 
 #### Update Prod Environment
 
@@ -333,11 +334,11 @@ NOTE: Although `foreman_admin_passwd` should be encrypted in production, using v
 8. Add the following two surveys and enable them:
     - ErrataByDate
         - Question: Enter ErrataByDate
-        - Answer variable name: `foreman_cv_end_date`
+        - Answer variable name: `satellite_cv_end_date`
         - Answer Type: Text
     - Satellite Password
         - Questoin: Enter Satellite Password
-        - Answer variable name: `foreman_admin_passwd`
+        - Answer variable name: `satellite_admin_passwd`
         - Answer Type: Password
 
-NOTE: When running the workflow for Production , `foreman_cv_end_date` needs to be set identical to the input for Development.
+NOTE: When running the workflow for Production , `satellite_cv_end_date` needs to be set identical to the input for Development.
